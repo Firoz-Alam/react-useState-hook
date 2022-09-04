@@ -1,36 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export default class Todo extends React.Component {
-    state = {
-        todo:'',
-        warning: null,
-    };
+export default function Todo (){
 
-    handleInput  = (e) => {
+    const [todo, setTodo] = useState('');
+    const [warning, setWarning] = useState('');
+    
+
+   const handleInput  = (e) => {
         const inputValue  = e.target.value;
         const warning = inputValue.includes('.js') ? "You have to know about JavaScript":null;
 
-        this.setState({
-            todo: inputValue,
-            warning:warning,
-        })
+        setTodo(inputValue);
+        setWarning(warning);
     }
 
-    render() {
+    return (
+        <div>
+            <p>{todo}</p>
+            <p>
+                <textarea name='todo' value={todo} onChange = {handleInput}/>
+            </p>
 
-        const {todo,warning} = this.state;
+            <hr/>
 
-        return (
-            <div>
-                <p>{todo}</p>
-                <p>
-                    <textarea name='todo' value={todo} onChange = {this.handleInput}/>
-                </p>
-
-                <hr/>
-
-                <h2>{warning || 'Good Choice !'}</h2>
-            </div>
-        );
-    }
+            <h2>{warning || 'Good Choice !'}</h2>
+        </div>
+    );
 }
